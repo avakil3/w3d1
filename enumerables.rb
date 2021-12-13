@@ -24,6 +24,31 @@ class Array
         self.select {|ele| !prc.call(ele) }
     end
 
+    def my_any?(&prc)
+        self.each { |ele| return true if prc.call(ele) }
+        return false
+    end
+
+    def my_all?(&prc)
+        self.each { |ele| return false if !prc.call(ele) }
+        return true
+    end
+
+    def my_flatten
+        flattened = []
+        self.each do |ele| 
+            if ele.is_a?(Array)
+            flattened += ele.my_flatten
+            else
+                flattened << ele
+            end    
+        end
+        flattened
+    end
+
 end
+
+
+
 
 
