@@ -24,10 +24,23 @@ class Array
         self.select {|ele| !prc.call(ele) }
     end
 
+    def my_any?(&prc)
+        self.each { |ele| return true if prc.call(ele) }
+        return false
+    end
+
+    def my_all?(&prc)
+        self.each { |ele| return false if !prc.call(ele) }
+        return true
+    end
+
 end
 
-
 a = [1, 2, 3]
-p a.my_reject { |num| num > 1 } # => [1]
-p a.my_reject { |num| num == 4 } # => [1, 2, 3]
+p a.my_any? { |num| num > 1 } # => true
+p a.my_any? { |num| num == 4 } # => false
+p a.my_all? { |num| num > 1 } # => false
+p a.my_all? { |num| num < 4 } # => true
+
+
 
